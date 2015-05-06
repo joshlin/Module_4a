@@ -6,6 +6,7 @@
 var express = require('express');
 var trucks = require('./trucks');
 var app = express();
+var port = process.env.PORT || 3000;
 app.set('json spaces', 4);
 
 app.use(express.static('public'));
@@ -18,16 +19,16 @@ app.use(express.static('public'));
 //     next();
 // });
 
-app.get('/', function (request, response){
-	response.redirect('/trucks');
-});
+// app.get('/', function (request, response){
+// 	response.redirect('/trucks');
+// });
 
 app.get('/trucks', function (request, response){
 	response.json(trucks.getTrucks());
 });
 
 app.get('/trucks/:name', function (request, response) {
-	var truck = trucks.getTruck(request.params.name)
+	var truck = trucks.getTruck(decodeURIComponent(request.params.name))
 	if (!truck) {
         response.status(404).json('No food truck found for ' + request.params.name);
     } else {
@@ -40,12 +41,13 @@ app.get('/food-types', function (request, response){
 });
 
 app.get('/:food-types/:name', function (request, response) {
-	var foodTrucks = trucks.filterByFoodType(request.params.name)
+	var foodTrucks = trucks.filterByFoodType(decodeURIComponent(request.params.name))
 	if (!foodTrucks) {
         response.status(404).json('No food truck type found for ' + request.params.name);
     } else {
     	response.json(foodTrucks);
     }   
+
 });
 
-app.listen(3000, function () { console.log('listening on port 3000'); });
+app.listen(port, function () { console.log('listening on port ' + port); });

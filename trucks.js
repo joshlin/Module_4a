@@ -544,8 +544,10 @@ function filterByFoodType(foodtype){
 }
 //console.log(filterByFoodType('Hot Dogs'));
 
-module.exports.getTrucks = getTrucks;
-module.exports.getTruck = getTruck;
-module.exports.getFoodTypes = getFoodTypes;
-module.exports.filterByDay = filterByDay;
-module.exports.filterByFoodType = filterByFoodType;
+module.exports = {
+	getTrucks : getTrucks,
+	getTruck : getTruck,
+	getFoodTypes : getFoodTypes,
+	filterByDay : filterByDay,
+ 	filterByFoodType : filterByFoodType
+ }
